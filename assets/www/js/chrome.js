@@ -45,6 +45,8 @@ window.chrome = function() {
 			$("#content").attr('dir', 'ltr');
 		}
 		$("#main").html(page.toHtml());
+		
+		fontFixMl.replaceInTextNodes($("#main")[0]);
 
 		chrome.initContentLinkHandlers("#main");
 		MobileFrontend.references.init($("#main")[0], false, {animation: 'none', onClickReference: onClickReference});
@@ -59,7 +61,9 @@ window.chrome = function() {
 			$contentBlock.append($(sectionHtml)).data('populated', true);
 			chrome.initContentLinkHandlers(selector);
 			MobileFrontend.references.init($contentBlock[0], false, {animation: 'none', onClickReference: onClickReference});
-		} 
+		}
+		
+		fontFixMl.replaceInTextNodes($contentBlock[0]);
 	}
 
 	function handleSectionExpansion() {
@@ -174,6 +178,8 @@ window.chrome = function() {
 			$(".closeButton").bind('click', showContent);
 			// Initialize Reference reveal with empty content
 			MobileFrontend.references.init($("#content")[0], true, {onClickReference: onClickReference} );
+			
+			fontFixMl.replaceInTextNodes($("#content")[0]);
 
 			app.setFontSize(preferencesDB.get('fontSize'));
 		});

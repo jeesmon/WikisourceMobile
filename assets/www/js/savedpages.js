@@ -169,6 +169,8 @@ window.savedPages = function() {
 				$('#savedPages').localize().show();
 				chrome.hideContent();
 				chrome.setupScrolling('#savedPages .scroller');
+				
+				fontFixMl.replaceInTextNodes($("#savedPages")[0]);
 			});
 		});
 

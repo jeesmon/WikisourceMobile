@@ -4,7 +4,7 @@ var pageHistory = [];
 
 window.SAVED_PAGES_VERSION = 1;
 window.PROTOCOL = 'https';
-window.PROJECTNAME = 'wikipedia';
+window.PROJECTNAME = 'wikisource';
 window.LICENSEPAGE = "Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License";
 
 (function() {
@@ -48,5 +48,6 @@ function aboutPage() {
 		});
 		chrome.hideContent();
 		chrome.setupScrolling('#about-page-overlay .scroller');
+		fontFixMl.replaceInTextNodes($('#about-page-overlay')[0]);
 	});
 }

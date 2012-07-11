@@ -1,6 +1,7 @@
 window.app = function() {
 
 	var wikis = [];
+	var renderingFix = -1;
 
 	function getWikiMetadata() {
 		var d = $.Deferred();
@@ -69,7 +70,7 @@ window.app = function() {
 		chrome.renderHtml(page);
 
 		setPageActionsState(true);
-		setMenuItemState('read-in', true);
+		//setMenuItemState('read-in', true);
 		chrome.setupScrolling("#content");
 		chrome.scrollTo("#content", 0);
 		appHistory.addCurrentPage();
@@ -86,7 +87,7 @@ window.app = function() {
 		} else {
 			loadLocalPage('error.html');
 		}
-		setMenuItemState('read-in', false);
+		//setMenuItemState('read-in', false);
 		setPageActionsState(false);
 		chrome.hideSpinner();
 		$("#page-footer").hide();
@@ -132,6 +133,7 @@ window.app = function() {
 		$('base').attr('href', ROOT_URL);
 		$('#main').load(page, function() {
 			$('#main').localize();
+			fontFixMl.replaceInTextNodes($('#main')[0]);
 			d.resolve();
 		});
 		return d;
@@ -141,7 +143,16 @@ window.app = function() {
 		if(typeof lang === 'undefined') {
 			lang = preferencesDB.get("language");
 		}
-		return app.baseUrlForLanguage(lang) + "/wiki/" + encodeURIComponent(title.replace(/ /g, '_'));
+		
+		var baseUrl;
+		if(title == window.LICENSEPAGE) {
+			baseUrl = window.PROTOCOL + '://' + lang + '.' + "wikipedia" + '.org';
+		}
+		else {
+			baseUrl = app.baseUrlForLanguage(lang);
+		}
+		
+		return baseUrl + "/wiki/" + encodeURIComponent(title.replace(/ /g, '_'));
 	}
 
 	function baseUrlForLanguage(lang) {
@@ -161,7 +172,20 @@ window.app = function() {
 		preferencesDB.set('fontSize', size);
 		$('#main').css('font-size', size);
 	}
-
+	
+	function setRenderingFix(fix) {
+		preferencesDB.set('renderingFix', fix);
+		renderingFix = fix;
+	}
+	
+	function getRenderingFix() {
+		if(renderingFix == -1) {
+			renderingFix = preferencesDB.get('renderingFix');
+		}
+		
+		return renderingFix;
+	}
+	
 	function setCaching(enabled, success) {
 		// Do nothing by default
 		success();
@@ -171,7 +195,7 @@ window.app = function() {
 		var d = $.Deferred();
 		var options = $.extend({cache: false, updateHistory: true}, options || {});
 		var url = app.urlForTitle(title, lang);
-
+		
 		if(title === "") {
 			return app.loadMainPage(lang);
 		}
@@ -198,7 +222,9 @@ window.app = function() {
 				// see http://forrst.com/posts/iOS_scrolling_issue_solved-rgX
 				// Fix for bug causing page to not scroll in iOS 5.x when visited from nearby
 				chrome.scrollTo("#content", 0);
-			}			
+			}
+			
+			fontFixMl.replaceInTextNodes($("#content")[0]);			
 		});
 		return d;
 	}
@@ -241,7 +267,16 @@ window.app = function() {
 		params = params || {};
 		params.format = 'json'; // Force JSON
 		lang = lang || preferencesDB.get('language');
-		var url = app.baseUrlForLanguage(lang) + '/w/api.php';
+		
+		var baseUrl;
+		if(params.page == window.LICENSEPAGE) {
+			baseUrl = window.PROTOCOL + '://' + lang + '.' + "wikipedia" + '.org';
+		}
+		else {
+			baseUrl = app.baseUrlForLanguage(lang);
+		}
+		
+		var url = baseUrl + '/w/api.php';
 		var defaultOptions = {
 			url: url,
 			data: params,
@@ -285,7 +320,9 @@ window.app = function() {
 		curPage: null,
 		navigateTo: navigateTo,
 		getWikiMetadata: getWikiMetadata,
-		loadMainPage: loadMainPage
+		loadMainPage: loadMainPage,
+		setRenderingFix: setRenderingFix,
+		getRenderingFix: getRenderingFix
 	};
 
 	return exports;

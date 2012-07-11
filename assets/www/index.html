@@ -24,7 +24,7 @@
   <script type="text/javascript" charset="utf-8" src="js/lawnchair/adapters/memory.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/hogan.min.js"></script>
+  	<script type="text/javascript" charset="utf-8" src="js/hogan.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/noclickdelay.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/mediawiki.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/2.5.3-crypto-md5.js"></script>
@@ -39,6 +39,7 @@
 	<script type="text/javascript" charset="utf-8" src="js/l10n-setup.js"></script>
 
 	<!-- app logic -->
+	<script type="text/javascript" charset="utf-8" src="js/font_fix_ml.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/page.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/templates.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
@@ -78,7 +79,7 @@
 				<label for="contentLanguageSelector"><msg key="settings-language-label"></msg></label>
 				<select id='contentLanguageSelector'>
 					{{#languages}}
-						<option value="{{code}}">{{name}} {{#localName}}({{localName}}){{/localName}}</option>
+						<option value="{{code}}">{{#localName}}{{localName}}{{/localName}}</option>
 					{{/languages}}
 				</select>
 			</div>
@@ -91,14 +92,25 @@
 					{{/fontSizes}}
 				</select>
 			</div>
+			
+			<div class="item">
+				<label for="renderingFixSelector">Unicode rendering fix</label>
+				<select id="renderingFixSelector">
+					{{#renderingFixes}}
+					<option value="{{value}}">{{name}}</option>
+					{{/renderingFixes}}
+				</select>
+			</div>
 
 			<div id="aboutPageLabel" class="item">
 				<label><msg key="about-page-label"></msg></label>
 			</div>
 
+			<!--
 			<div id="contactPageLabel" class="item externallink" data-link="/w/index.php?title=Special:MobileFeedback&feedbacksource=WikipediaMobile%2F1.2">
 				<label><msg key="contact-page-label"></msg></label>
 			</div>
+			-->
 		</script>
 		<script type="text/html" id="saved-pages-template">
 			{{#pages}}
@@ -224,7 +236,9 @@
 		</header>
 		<div class="scroller">
 			<div id="about-page-content">
+				<!--
 				<img src="image/logo.png" />
+				-->
 				<p id="about-version"><msg key="about-version"></msg> <span id="about-version-string"></span></p>
 				<a id="about-wmf-logo" href="http://wikimediafoundation.org/"><img src="image/wmf.png" /></a>
 				<p id="about-copyright"><msg key="about-copyright"></msg></p>
@@ -314,14 +328,18 @@
 	</div>
 
 	<menu id="appMenu" type="context">
+		<!--
 		<command type="command" id="languageCmd" icon="optionLanguage.png" disabled action="read-in" />
 		<command type="command" id="nearbyCmd" icon="optionNearMe.png" action="near-me" />
+		-->
 		<command type="command" id="sharePageCmd" action="share-page" icon="optionSharePage.png" />
 		<command type="command" id="savePageCmd" icon="optionAddBookmark.png" action="save-page" />
 		<command type="command" id="savedPagesCmd" icon="optionReadLater.png" action="view-saved-pages" />
 		<command type="command" id="historyCmd" icon="optionViewHistory.png"  action="view-history" />
 		<command type="command" id="forwardCmd" disabled icon="optionForward.png" action="go-forward" />
+		<!--
 		<command type="command" id="selectTextCmd"  action="select-text" />
+		-->
 		<command type="command" id="settingsCmd" icon="optionSettings.png" action="view-settings" />
 	</menu>
 

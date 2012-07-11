@@ -9,12 +9,13 @@ window.preferencesDB = {
 	// And then call the 'success()' parameter
 	// If it is not a function, is just used as is
 	defaults: {
+		'renderingFix': 0,
 		'fontSize': '100%',
 		// The locale. Default content language + UI language
 		'locale': function(success) {
 			var defaults = this;
 			l10n.navigatorLang(function(lang) {
-				defaults.locale = l10n.normalizeLanguageCode(lang || 'en');
+				defaults.locale = 'ml';
 				console.log('done with navigate');
 				success();
 			});

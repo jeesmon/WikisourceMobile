@@ -117,13 +117,13 @@ window.search = function() {
 			var searchResults = results[1].map(function(title) {
 				return {
 					key: app.urlForTitle(title),
-					title: title
+					title: fontFixMl.replaceText(title)
 				};
 			});
 			if(didyoumean) {
 				var didyoumean_link = {
 					key: app.urlForTitle(results[0]),
-					title: results[0]
+					title: fontFixMl.replaceText(results[0])
 				};
 				$("#resultList").html(template.render({'pages': searchResults, 'didyoumean': didyoumean_link}));
 			} else {
@@ -147,6 +147,8 @@ window.search = function() {
 		// see http://forrst.com/posts/iOS_scrolling_issue_solved-rgX
 		// Fix for bug causing page to not scroll in iOS 5.x when visited from nearby
 		chrome.scrollTo("#searchresults .scroller", 0);
+		
+		fontFixMl.replaceInTextNodes($("#doFullSearch")[0]);
 	}
 
 	return {

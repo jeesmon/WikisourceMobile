@@ -14,10 +14,16 @@ window.languageLinks = function() {
 		var req = page.requestLangLinks().done(function(langLinks) {
 			var template = templates.getTemplate("language-links-template");
 			app.getWikiMetadata().done(function(wikis) {
+				var tmpLangLinks = [];
 				$.each(langLinks, function(i, link) {
-					link.dir = l10n.isLangRTL(link.lang) ? "rtl" : "ltr";
-					link.langName = wikis[link.lang].name;
+					if(wikis[link.lang]) {
+						link.dir = l10n.isLangRTL(link.lang) ? "rtl" : "ltr";
+						link.langName = wikis[link.lang].name;
+						tmpLangLinks.push(link);
+					}
 				});
+				langLinks = tmpLangLinks;
+				
 				langLinks.sort(function(l1, l2) {
 					return l1.langName.localeCompare(l2.langName);
 				});

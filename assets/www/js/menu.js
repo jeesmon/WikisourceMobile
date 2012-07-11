@@ -28,10 +28,12 @@ var menu_items = [
 		action: chrome.goForward,
 		disabled: true
 	},
+	/*
 	{
 		id: 'read-in',
 		action:  function() { languageLinks.showLangLinks(app.curPage); }
 	},
+	*/
 	{
 		id: 'page-actions',
 		action: function() {

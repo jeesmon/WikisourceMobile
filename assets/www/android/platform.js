@@ -20,7 +20,7 @@ l10n.navigatorLang = function(success) {
 }
 
 function getAboutVersionString() {
-	return "1.2.1";
+	return "1.0";
 }
 
 (function() {
@@ -40,7 +40,7 @@ function setMenuItemState(action, state) {
 }
 
 function setPageActionsState(state) {
-	setMenuItemState("read-in", state);
+	//setMenuItemState("read-in", state);
 	setMenuItemState("save-page", state);
 	setMenuItemState("share-page", state);
 }
