@@ -1,16 +1,20 @@
 package org.wikipedia;
 
+import org.apache.cordova.DroidGap;
+
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-
-import org.apache.cordova.DroidGap;
 
 public class WikipediaActivity extends DroidGap {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		this.setStringProperty("loadingDialog", "");
+		this.setStringProperty("loadingPageDialog", "");
+		this.setIntegerProperty("backgroundColor", Color.WHITE);
 
 		super.loadUrl("file:///android_asset/www/index.html");
 

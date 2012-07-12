@@ -5,4 +5,11 @@
     <string name="search_hint_location">Current location</string>
     <string name="search_description">Article name and text</string>
     <string name="search_hint_wiki">Search Wikisource</string>
+    <string name="setup_heading_text">Which one looks better ?</string>
+    <string name="font_name">www/fonts/AnjaliOldLipi.ttf</string>
+    <string name="setup_test_text">സോഫ്റ്റ്‌വെയർ, കാർക്കോടകൻ, സ്വാതന്ത്ര്യം</string>
+    <string name="button_continue_text">Continue</string>
+    
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
 </resources>

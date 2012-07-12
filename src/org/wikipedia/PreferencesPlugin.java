@@ -11,7 +11,7 @@ import org.apache.cordova.api.Plugin;
 import org.apache.cordova.api.PluginResult;
 
 public class PreferencesPlugin extends Plugin {
-	public static final String PREFS_NAME = "WikipediaPrefs";
+	public static final String PREFS_NAME = "WikisourcePrefs";
 
 	@Override
 	public PluginResult execute(String action, JSONArray args, String callbackId) {
